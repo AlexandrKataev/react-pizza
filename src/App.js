@@ -3,6 +3,7 @@ import Header from './components/Header/Header';
 import Categories from './components/Categories/Categories';
 import Sort from './components/Sort/Sort';
 import PizzaBlock from './components/PizzaBlock/PizzaBlock';
+import pizzas from './assets/pizzas.json';
 
 function App() {
   return (
@@ -18,9 +19,9 @@ function App() {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-              <PizzaBlock title="Мясная" price="679" />
-              <PizzaBlock title="Пепперони" price="499" />
-              <PizzaBlock title="Мексиканская" price="599" />
+              {pizzas.map((obj) => {
+                return <PizzaBlock key={obj.id} {...obj} />;
+              })}
             </div>
           </div>
         </div>
