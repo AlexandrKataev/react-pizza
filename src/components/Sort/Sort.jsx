@@ -1,13 +1,16 @@
 import React from 'react';
 
-export default function Sort() {
+export default function Sort(props) {
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState(0);
   const onClickSortBy = (i) => {
-    setSelected(i);
+    props.onClickSortType(i);
     setOpen(false);
   };
-  const list = ['популярности', 'цене', 'алфавиту'];
+  const list = [
+    { name: 'популярности', sortProperty: 'rating' },
+    { name: 'цене', sortProperty: 'price' },
+    { name: 'алфавиту', sortProperty: 'title' },
+  ];
 
   return (
     <div className="sort">
@@ -25,7 +28,7 @@ export default function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{list[selected]}</span>
+        <span onClick={() => setOpen(!open)}>{props.sortType.name}</span>
       </div>
       <div>
         {open && (
@@ -36,11 +39,11 @@ export default function Sort() {
                   <li
                     key={i}
                     onClick={() => {
-                      onClickSortBy(i);
+                      onClickSortBy(sortBy);
                     }}
-                    className={selected === i ? 'active' : ''}
+                    className={props.sortType.sortProperty === sortBy.sortProperty ? 'active' : ''}
                   >
-                    {sortBy}
+                    {sortBy.name}
                   </li>
                 );
               })}
