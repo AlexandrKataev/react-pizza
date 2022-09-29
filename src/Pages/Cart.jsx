@@ -9,9 +9,13 @@ export default function Cart({ id }) {
   const dispatch = useDispatch();
 
   const onClickClear = () => {
-    dispatch(clearItem({ id }));
+    if (window.confirm('Очистить корзину?')) {
+      dispatch(clearItem({ id }));
+    }
   };
   const cartItem = useSelector((state) => state.cart.items);
+  const cartTotalPrice = useSelector((state) => state.cart.totalPrice);
+  const totalCount = cartItem.reduce((sum, item) => sum + item.count, 0);
 
   return (
     <div className="container">
@@ -100,11 +104,11 @@ export default function Cart({ id }) {
             <div className="cart__bottom-details">
               <span>
                 {' '}
-                Всего пицц: <b>3 шт.</b>{' '}
+                Всего пицц: <b>{totalCount} шт.</b>{' '}
               </span>
               <span>
                 {' '}
-                Сумма заказа: <b>900 ₽</b>{' '}
+                Сумма заказа: <b>{cartTotalPrice} ₽</b>{' '}
               </span>
             </div>
             <div className="cart__bottom-buttons">

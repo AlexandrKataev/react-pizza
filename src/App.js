@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import CartEmpty from './components/CartEmpty/CartEmpty';
 
 import Header from './components/Header/Header';
 import Cart from './Pages/Cart';
@@ -10,6 +12,7 @@ import './scss/app.scss';
 
 function App() {
   const [searchValue, setSearchValue] = React.useState('');
+  const cartTotalPrice = useSelector((state) => state.cart.totalPrice);
   return (
     <div>
       <div className="wrapper">
@@ -18,7 +21,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<Home searchValue={searchValue} />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/cart" element={cartTotalPrice ? <Cart /> : <CartEmpty />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
