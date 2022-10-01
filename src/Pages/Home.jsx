@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId } from '../Redux/Slices/filterSlice';
@@ -8,14 +7,13 @@ import Categories from '../components/Categories/Categories';
 import Sort from '../components/Sort/Sort';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
+import { fetchPizzas } from '../Redux/Slices/pizzaSlice';
 
 export default function Home({ searchValue }) {
   const dispatch = useDispatch();
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
-
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsloading] = React.useState(true);
+  const { items, status } = useSelector((state) => state.pizza);
 
   const pizzas = items
     .filter((obj) => {
@@ -33,21 +31,13 @@ export default function Home({ searchValue }) {
   const onClickSortType = (id) => {
     dispatch(setSortType(id));
   };
+  const getPizzas = async () => {
+    dispatch(fetchPizzas({ categoryId, sortType }));
+    window.scrollTo(0, 0);
+  };
 
   React.useEffect(() => {
-    setIsloading(true);
-    axios
-      .get(
-        `https://632a05584c626ff832cfe7bb.mockapi.io/items?${
-          categoryId > 0 ? `category=${categoryId}` : ''
-        }&sortBy=${sortType}&order=desc`,
-      )
-
-      .then((res) => {
-        setItems(res.data);
-        setIsloading(false);
-      });
-    window.scrollTo(0, 0);
+    getPizzas();
   }, [categoryId, sortType, searchValue]);
 
   return (
@@ -58,7 +48,11 @@ export default function Home({ searchValue }) {
           <Sort sortType={sortType} onClickSortType={(i) => setSortType(i)} />
         </div>
         <h2 className="content__title">Все пиццы</h2>
-        <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+        {status === 'error' ? (
+          <h1>Ошибка запроса на сервер</h1>
+        ) : (
+          <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
+        )}
       </div>
     </div>
   );
