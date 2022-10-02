@@ -4,9 +4,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 /* 
 Создаем асинхронную функцию - fetch запрос, который возвращает данные. 
 createAsyncThunk - создает ассинхронную функцию
+'pizza/fetchPizzasStatus' - просто имя для функции, можно указать любое, его будет видно в Redux отладчике
 params - входящие в функцию параметры
+response - ответ от сервера
+thunkAPI - дает доступ к функциям dispatch(), getState(), signal() 
 */
-export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (params) => {
+export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (params, thunkAPI) => {
   const { categoryId, sortType } = params;
   const response = await axios.get(
     `https://632a05584c626ff832cfe7bb.mockapi.io/items?${
