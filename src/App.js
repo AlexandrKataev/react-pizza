@@ -6,6 +6,7 @@ import CartEmpty from './components/CartEmpty/CartEmpty';
 import Header from './components/Header/Header';
 import Cart from './Pages/Cart';
 import Home from './Pages/Home';
+import FullPizza from './Pages/FullPizza';
 import NotFound from './Pages/NotFound';
 
 import './scss/app.scss';
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={cartTotalPrice ? <Cart /> : <CartEmpty />} />
+            <Route path="/pizza/:id" element={<FullPizza />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
