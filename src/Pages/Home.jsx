@@ -1,19 +1,20 @@
 import React from 'react';
-
 import { useSelector, useDispatch } from 'react-redux';
+
 import { setCategoryId } from '../Redux/Slices/filterSlice';
 import { setSortType } from '../Redux/Slices/filterSlice';
 import Categories from '../components/Categories/Categories';
 import Sort from '../components/Sort/Sort';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import { fetchPizzas } from '../Redux/Slices/pizzaSlice';
+import { fetchPizzas, selectPizzaItems } from '../Redux/Slices/pizzaSlice';
 
-export default function Home({ searchValue }) {
+export default function Home() {
   const dispatch = useDispatch();
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
-  const { items, status } = useSelector((state) => state.pizza);
+  const searchValue = useSelector((state) => state.filter.searchValue);
+  const { items, status } = useSelector(selectPizzaItems);
 
   const pizzas = items
     .filter((obj) => {

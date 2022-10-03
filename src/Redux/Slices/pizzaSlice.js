@@ -55,6 +55,8 @@ export const pizzaSlice = createSlice({
   },
 });
 
+export const selectPizzaItems = (state) => state.pizza;
+
 /* Экспортируем редьюсеры */
 export const { setItems } = pizzaSlice.actions;
 

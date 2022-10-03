@@ -1,21 +1,24 @@
 import debounce from 'lodash.debounce';
 import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSearchValue } from '../../Redux/Slices/filterSlice';
 
 import styles from './Search.module.scss';
 
-export default function Search({ searchValue, setSearchValue }) {
-  const [value, setValue] = useState('');
+export default function Search() {
+  const dispatch = useDispatch();
+  const [value, setValue] = useState(''); // локальный стейт для debounce
   const inputRef = React.useRef();
 
   const onCLickClear = () => {
-    setSearchValue('');
+    dispatch(setSearchValue(''));
     setValue('');
     inputRef.current.focus();
   };
 
   const updateSearchValue = React.useCallback(
     debounce((value) => {
-      setSearchValue(value);
+      dispatch(setSearchValue(value));
     }, 150),
     [],
   );
@@ -45,8 +48,7 @@ export default function Search({ searchValue, setSearchValue }) {
           onClick={onCLickClear}
           className={styles.close}
           viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
         </svg>
       )}
