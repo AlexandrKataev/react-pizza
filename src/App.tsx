@@ -8,11 +8,13 @@ import Cart from './Pages/Cart';
 import Home from './Pages/Home';
 import FullPizza from './Pages/FullPizza';
 import NotFound from './Pages/NotFound';
+import { selectCartTotalPrice } from './Redux/Slices/cartSlice';
 
 import './scss/app.scss';
 
 function App() {
-  const cartTotalPrice = useSelector((state) => state.cart.totalPrice);
+  const cartTotalPrice = useSelector(selectCartTotalPrice);
+  console.log(cartTotalPrice);
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>

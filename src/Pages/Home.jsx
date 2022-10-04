@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { setCategoryId } from '../Redux/Slices/filterSlice';
 import { setSortType } from '../Redux/Slices/filterSlice';
@@ -24,11 +23,7 @@ export default function Home() {
       }
       return false;
     })
-    .map((obj) => (
-      <Link key={obj.id} to={`/pizza/${obj.id}`}>
-        <PizzaBlock {...obj} />
-      </Link>
-    ));
+    .map((obj) => <PizzaBlock {...obj} />);
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton />);
 
   const onClickCategory = (id) => {

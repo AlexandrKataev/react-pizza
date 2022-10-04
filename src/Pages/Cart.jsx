@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import CartItem from '../components/CartItem/CartItem';
 import { clearItem, selectCart } from '../Redux/Slices/cartSlice';
 
-export default function Cart({ id }) {
+export default function Cart() {
   const dispatch = useDispatch();
 
   const onClickClear = () => {
     if (window.confirm('Очистить корзину?')) {
-      dispatch(clearItem({ id }));
+      dispatch(clearItem());
     }
   };
   const cartItem = useSelector(selectCart);
