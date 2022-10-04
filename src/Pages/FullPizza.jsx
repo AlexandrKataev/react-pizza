@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function FullPizza() {
   const [pizza, setPizza] = useState();
+  const navigate = useNavigate();
   const { id } = useParams();
   React.useEffect(() => {
     async function fetchPizza() {
@@ -13,6 +14,7 @@ export default function FullPizza() {
         setPizza(data);
       } catch (error) {
         alert('Ошибка при получении пиццы');
+        navigate('/');
       }
     }
     fetchPizza();
