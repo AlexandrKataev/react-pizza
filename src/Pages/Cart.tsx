@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CartItem from '../components/CartItem/CartItem';
-import { clearItem, selectCart } from '../Redux/Slices/cartSlice';
+import { clearItem, selectCart, selectCartTotalPrice } from '../Redux/Slices/cartSlice';
 
-export default function Cart() {
+const Cart = () => {
   const dispatch = useDispatch();
 
   const onClickClear = () => {
@@ -14,8 +14,8 @@ export default function Cart() {
     }
   };
   const cartItem = useSelector(selectCart);
-  const cartTotalPrice = useSelector((state) => state.cart.totalPrice);
-  const totalCount = cartItem.reduce((sum, item) => sum + item.count, 0);
+  const cartTotalPrice = useSelector(selectCartTotalPrice);
+  const totalCount = cartItem.reduce((sum: number, item: any) => sum + item.count, 0);
 
   return (
     <div className="container">
@@ -87,7 +87,7 @@ export default function Cart() {
             </div>
           </div>
           <div className="content__items">
-            {cartItem.map((item) => (
+            {cartItem.map((item: any) => (
               <CartItem key={item.id} {...item} />
             ))}
           </div>
@@ -129,4 +129,6 @@ export default function Cart() {
       </div>
     </div>
   );
-}
+};
+
+export default Cart;

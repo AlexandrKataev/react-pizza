@@ -3,11 +3,12 @@ import Logo from './Logo';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Search from '../Search/Search';
+import { selectCartState } from '../../Redux/Slices/cartSlice';
 
-const Header = () => {
+const Header: React.FC = () => {
   const location = useLocation();
-  const { items, totalPrice } = useSelector((state) => state.cart);
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const { items, totalPrice } = useSelector(selectCartState);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
   return (
     <div className="header">
       <div className="container">

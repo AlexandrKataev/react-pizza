@@ -52,6 +52,7 @@ export const cartSlice = createSlice({
   },
 });
 
+export const selectCartState = (state) => state.cart;
 export const selectCart = (state) => state.cart.items;
 export const selectPizza = (id) => (state) => state.cart.items.find((obj) => obj.id === id);
 export const selectCartTotalPrice = (state) => state.cart.totalPrice;

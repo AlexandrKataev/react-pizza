@@ -9,7 +9,7 @@ import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import { fetchPizzas, selectPizzaItems } from '../Redux/Slices/pizzaSlice';
 
-export default function Home() {
+const Home = () => {
   const dispatch = useDispatch();
   const categoryId = useSelector((state) => state.filter.categoryId);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
@@ -57,4 +57,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Home;
