@@ -13,7 +13,7 @@ const list: SortItem[] = [
   { name: 'алфавиту', sortProperty: 'title' },
 ];
 
-export default function Sort() {
+const Sort: React.FC = () => {
   const sortRef = React.useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
@@ -73,4 +73,6 @@ export default function Sort() {
       </div>
     </div>
   );
-}
+};
+
+export default Sort;

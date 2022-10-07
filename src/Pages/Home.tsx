@@ -1,7 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setCategoryId } from '../Redux/Slices/filterSlice';
+import {
+  selectSearchValue,
+  selectSortCategoryId,
+  selectSortProperty,
+  setCategoryId,
+} from '../Redux/Slices/filterSlice';
 import { setSortType } from '../Redux/Slices/filterSlice';
 import Categories from '../components/Categories/Categories';
 import Sort from '../components/Sort/Sort';
@@ -9,31 +14,34 @@ import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import { fetchPizzas, selectPizzaItems } from '../Redux/Slices/pizzaSlice';
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const categoryId = useSelector((state) => state.filter.categoryId);
-  const sortType = useSelector((state) => state.filter.sort.sortProperty);
-  const searchValue = useSelector((state) => state.filter.searchValue);
+  const categoryId = useSelector(selectSortCategoryId);
+  const sortType = useSelector(selectSortProperty);
+  const searchValue = useSelector(selectSearchValue);
   const { items, status } = useSelector(selectPizzaItems);
 
   const pizzas = items
-    .filter((obj) => {
+    .filter((obj: any) => {
       if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
         return true;
       }
       return false;
     })
-    .map((obj) => <PizzaBlock {...obj} />);
+    .map((obj: any) => <PizzaBlock {...obj} />);
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton />);
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
-  const onClickSortType = (id) => {
+  const onClickSortType = (id: number) => {
     dispatch(setSortType(id));
   };
   const getPizzas = async () => {
-    dispatch(fetchPizzas({ categoryId, sortType }));
+    dispatch(
+      //@ts-ignore
+      fetchPizzas({ categoryId, sortType }),
+    );
     window.scrollTo(0, 0);
   };
 
@@ -46,7 +54,7 @@ const Home = () => {
       <div>
         <div className="content__top">
           <Categories categoryId={categoryId} onClickCategory={onClickCategory} />
-          <Sort sortType={sortType} onClickSortType={(i) => setSortType(i)} />
+          <Sort onClickSortType={(i: number) => onClickSortType(i)} />
         </div>
         <h2 className="content__title">Все пиццы</h2>
         {status === 'error' ? (

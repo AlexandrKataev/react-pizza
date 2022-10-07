@@ -23,6 +23,10 @@ export const filterSlice = createSlice({
 });
 
 export const selectSort = (state) => state.filter.sort;
+export const selectSortCategoryId = (state) => state.filter.categoryId;
+export const selectSortProperty = (state) => state.filter.sort.sortProperty;
+export const selectSearchValue = (state) => state.filter.searchValue;
+
 export const { setCategoryId, setSortType, setSearchValue } = filterSlice.actions;
 
 export default filterSlice.reducer;
