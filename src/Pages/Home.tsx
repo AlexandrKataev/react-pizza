@@ -34,9 +34,7 @@ const Home: React.FC = () => {
   const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
-  const onClickSortType = (id: number) => {
-    dispatch(setSortType(id));
-  };
+
   const getPizzas = async () => {
     dispatch(
       //@ts-ignore
@@ -54,7 +52,7 @@ const Home: React.FC = () => {
       <div>
         <div className="content__top">
           <Categories categoryId={categoryId} onClickCategory={onClickCategory} />
-          <Sort onClickSortType={(i: number) => onClickSortType(i)} />
+          <Sort />
         </div>
         <h2 className="content__title">Все пиццы</h2>
         {status === 'error' ? (

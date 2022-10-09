@@ -1,6 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { PathRouteProps } from 'react-router-dom';
 import { selectSort, setSortType } from '../../Redux/Slices/filterSlice';
+
+type PopupClick = MouseEvent & {
+  path: Node[];
+};
 
 type SortItem = {
   name: string;
@@ -24,8 +29,9 @@ const Sort: React.FC = () => {
     setOpen(false);
   };
   React.useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as PopupClick;
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpen(false);
         console.log('был клик');
       }
