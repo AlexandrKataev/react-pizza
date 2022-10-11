@@ -8,7 +8,7 @@ import Cart from './Pages/Cart';
 import Home from './Pages/Home';
 import FullPizza from './Pages/FullPizza';
 import NotFound from './Pages/NotFound';
-import { selectCartTotalPrice } from './Redux/Slices/cartSlice';
+import { selectCartTotalPrice } from './Redux/Slices/Cart/selectors';
 
 import './scss/app.scss';
 

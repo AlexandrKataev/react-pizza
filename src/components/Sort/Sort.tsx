@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { PathRouteProps } from 'react-router-dom';
 import { selectSort, setSortType } from '../../Redux/Slices/filterSlice';
 
 type PopupClick = MouseEvent & {
@@ -18,7 +17,7 @@ const list: SortItem[] = [
   { name: 'алфавиту', sortProperty: 'title' },
 ];
 
-const Sort: React.FC = () => {
+const Sort: React.FC = React.memo(() => {
   const sortRef = React.useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
@@ -79,6 +78,6 @@ const Sort: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Sort;

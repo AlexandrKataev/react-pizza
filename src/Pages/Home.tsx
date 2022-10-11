@@ -39,12 +39,12 @@ const Home: React.FC = () => {
       }
       return false;
     })
-    .map((obj) => <PizzaBlock {...obj} />);
-  const skeletons = [...new Array(6)].map((_, index) => <Skeleton />);
+    .map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
-  const onClickCategory = (id: number) => {
+  const onClickCategory = React.useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
 
   const getPizzas = async () => {
     dispatch(fetchPizzas({ categoryId, sortType }));
