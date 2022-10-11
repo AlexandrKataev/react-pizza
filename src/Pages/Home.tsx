@@ -8,6 +8,7 @@ import {
   selectSortProperty,
   setCategoryId,
 } from '../Redux/Slices/filterSlice';
+import { setSortType } from '../Redux/Slices/filterSlice';
 import Categories from '../components/Categories/Categories';
 import Sort from '../components/Sort/Sort';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
@@ -20,6 +21,16 @@ const Home: React.FC = () => {
   const sortType = useSelector(selectSortProperty);
   const searchValue = useSelector(selectSearchValue);
   const { items, status } = useSelector(selectPizzaItems);
+
+  type PizzaItemsType = {
+    id: string;
+    title: string;
+    price: number;
+    imageUrl: string;
+    sizes: number[];
+    types: number[];
+    count: number;
+  };
 
   const pizzas = items
     .filter((obj: Pizza) => {
