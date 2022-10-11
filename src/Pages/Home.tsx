@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../Redux/store';
 
 import {
   selectSearchValue,
@@ -15,7 +16,7 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import { fetchPizzas, selectPizzaItems } from '../Redux/Slices/pizzaSlice';
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const categoryId = useSelector(selectSortCategoryId);
   const sortType = useSelector(selectSortProperty);
   const searchValue = useSelector(selectSearchValue);
@@ -36,10 +37,7 @@ const Home: React.FC = () => {
   };
 
   const getPizzas = async () => {
-    dispatch(
-      //@ts-ignore
-      fetchPizzas({ categoryId, sortType }),
-    );
+    dispatch(fetchPizzas({ categoryId, sortType }));
     window.scrollTo(0, 0);
   };
 

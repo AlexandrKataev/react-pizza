@@ -9,7 +9,7 @@ type PopupClick = MouseEvent & {
 
 type SortItem = {
   name: string;
-  sortProperty: string;
+  sortProperty: 'rating' | 'price' | 'title';
 };
 
 const list: SortItem[] = [
