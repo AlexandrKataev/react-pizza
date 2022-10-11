@@ -8,12 +8,11 @@ import {
   selectSortProperty,
   setCategoryId,
 } from '../Redux/Slices/filterSlice';
-import { setSortType } from '../Redux/Slices/filterSlice';
 import Categories from '../components/Categories/Categories';
 import Sort from '../components/Sort/Sort';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
-import { fetchPizzas, selectPizzaItems } from '../Redux/Slices/pizzaSlice';
+import { fetchPizzas, Pizza, selectPizzaItems } from '../Redux/Slices/pizzaSlice';
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -23,13 +22,13 @@ const Home: React.FC = () => {
   const { items, status } = useSelector(selectPizzaItems);
 
   const pizzas = items
-    .filter((obj: any) => {
+    .filter((obj: Pizza) => {
       if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
         return true;
       }
       return false;
     })
-    .map((obj: any) => <PizzaBlock {...obj} />);
+    .map((obj) => <PizzaBlock {...obj} />);
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton />);
 
   const onClickCategory = (id: number) => {

@@ -9,14 +9,14 @@ type PizzaBlockProps = {
   title: string;
   price: number;
   imageUrl: string;
-  sizes: number[];
-  types: number[];
+  size: number[];
+  type: number[];
   count: number;
 };
 
 const typesNames = ['Тонкое', 'Традиционное'];
 
-const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, sizes, types }) => {
+const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, size, type }) => {
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, siz
       price,
       imageUrl,
       type: typesNames[activeType],
-      size: sizes[activeSize],
+      size: size[activeSize],
       count: 0,
     };
     dispatch(addItem(item));
@@ -45,7 +45,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, siz
       </Link>
       <div className="pizza-block__selector">
         <ul>
-          {types.map((typeId) => {
+          {type.map((typeId) => {
             return (
               <li
                 key={typeId}
@@ -57,7 +57,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, siz
           })}
         </ul>
         <ul>
-          {sizes.map((size, index) => {
+          {size.map((size, index) => {
             return (
               <li
                 key={size}

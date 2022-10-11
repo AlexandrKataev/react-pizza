@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { CartItem } from './cartSlice';
 
 /* 
 Создаем асинхронную функцию - fetch запрос, который возвращает данные. 
@@ -17,7 +16,7 @@ type FetchPizzasArgs = {
   sortType: string;
 };
 
-type Pizza = {
+export type Pizza = {
   id: string;
   title: string;
   price: number;
